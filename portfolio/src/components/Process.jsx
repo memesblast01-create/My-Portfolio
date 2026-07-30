@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { PROCESS_STEPS } from '../utils/data'
+import { accentFor } from '../utils/palette'
 
 export default function Process() {
   return (
@@ -37,7 +38,7 @@ export default function Process() {
               >
                 <div
                   className="relative z-10 w-3.5 h-3.5 rounded-full mb-6"
-                  style={{ background: 'var(--accent)', boxShadow: '0 0 0 5px var(--bg)' }}
+                  style={{ background: accentFor(i).fg, boxShadow: '0 0 0 5px var(--bg)' }}
                 />
                 <div className="font-mono text-xs mb-2" style={{ color: 'var(--fg-muted)' }}>
                   {String(i + 1).padStart(2, '0')}

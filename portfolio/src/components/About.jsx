@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { LineReveal } from './RevealText'
 import AnimatedCounter from './AnimatedCounter'
-import portrait from '../assets/images/portrait.jpg'
+import portrait from '../assets/images/portrait-cutout.webp'
 
 const STATS = [
   { value: 7, suffix: '', label: 'Years experience' },
@@ -20,8 +20,16 @@ export default function About() {
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
           className="relative aspect-[4/5] rounded-[1.75rem] overflow-hidden order-2 md:order-1"
         >
-          <img src={portrait} alt="Arsalan at work" className="w-full h-full object-cover grayscale" />
-          <div className="absolute inset-0" style={{ background: 'color-mix(in srgb, var(--charcoal) 22%, transparent)' }} />
+          <div
+            className="absolute inset-0"
+            style={{ background: 'linear-gradient(165deg, var(--stone) 0%, var(--surface) 55%, var(--accent-2) 150%)' }}
+          />
+          <img
+            src={portrait}
+            alt="Arsalan at work"
+            className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[102%] w-auto max-w-none object-contain object-bottom grayscale"
+          />
+          <div className="absolute inset-0" style={{ background: 'color-mix(in srgb, var(--charcoal) 12%, transparent)' }} />
         </motion.div>
 
         <div className="order-1 md:order-2">

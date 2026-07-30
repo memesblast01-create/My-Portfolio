@@ -40,9 +40,8 @@ export default function ProjectModal({ project, onClose }) {
             <span className="eyebrow">{project.category} — {project.year}</span>
             <h3 className="font-display text-3xl md:text-4xl mt-3 mb-8">{project.title}</h3>
 
-            <div className="aspect-video rounded-2xl mb-10 overflow-hidden flex items-center justify-center"
-              style={{ background: 'linear-gradient(135deg, var(--accent-2), var(--accent))' }}>
-              <span className="font-display text-white/85 text-lg">{project.title}</span>
+            <div className="aspect-video rounded-2xl mb-10 overflow-hidden">
+              <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
             </div>
 
             <div className="grid sm:grid-cols-3 gap-8 text-sm">

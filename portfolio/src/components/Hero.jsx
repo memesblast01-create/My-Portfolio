@@ -4,7 +4,7 @@ import { ArrowDown, ArrowUpRight } from 'lucide-react'
 import { CharReveal } from './RevealText'
 import MagneticButton from './MagneticButton'
 import { GithubIcon, InstagramIcon, LinkedinIcon } from './SocialIcons'
-import portrait from '../assets/images/portrait.jpg'
+import portrait from '../assets/images/portrait-cutout.webp'
 
 export default function Hero() {
   const sectionRef = useRef(null)
@@ -147,15 +147,23 @@ export default function Hero() {
               className="absolute -inset-4 -z-10 rounded-[2.5rem] blur-2xl opacity-40"
               style={{ background: 'linear-gradient(140deg, var(--accent), var(--accent-2))' }}
             />
+            <div
+              className="absolute inset-0"
+              style={{ background: 'linear-gradient(155deg, var(--accent-2) 0%, var(--surface) 55%, var(--accent) 130%)' }}
+            />
+            <div
+              className="absolute inset-0 opacity-[0.5]"
+              style={{ background: 'radial-gradient(120% 90% at 30% 0%, color-mix(in srgb, var(--bg) 35%, transparent), transparent 60%)' }}
+            />
             <img
               src={portrait}
               alt="Portrait of Arsalan"
-              className="w-full h-full object-cover"
-              style={{ filter: 'saturate(0.92) contrast(1.02)' }}
+              className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[104%] w-auto max-w-none object-contain object-bottom"
+              style={{ filter: 'saturate(0.96) contrast(1.02)' }}
             />
             <div
               className="absolute inset-0"
-              style={{ background: 'linear-gradient(180deg, transparent 60%, color-mix(in srgb, var(--charcoal) 55%, transparent))' }}
+              style={{ background: 'linear-gradient(180deg, transparent 62%, color-mix(in srgb, var(--charcoal) 45%, transparent))' }}
             />
             <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between font-mono text-[0.65rem] uppercase tracking-widest text-white/85">
               <span>Est. Dubai</span>

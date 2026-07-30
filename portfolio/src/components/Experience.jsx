@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { EXPERIENCE } from '../utils/data'
+import { accentFor } from '../utils/palette'
 
 export default function Experience() {
   return (
@@ -35,9 +36,9 @@ export default function Experience() {
               >
                 <span
                   className="absolute left-0 top-1.5 w-3.5 h-3.5 rounded-full"
-                  style={{ background: 'var(--bg)', border: '2px solid var(--accent)' }}
+                  style={{ background: 'var(--bg)', border: `2px solid ${accentFor(i).fg}` }}
                 />
-                <div className="font-mono text-xs uppercase tracking-widest mb-1.5" style={{ color: 'var(--accent)' }}>
+                <div className="font-mono text-xs uppercase tracking-widest mb-1.5" style={{ color: accentFor(i).fg }}>
                   {item.year}
                 </div>
                 <h3 className="font-display text-xl">{item.title}</h3>

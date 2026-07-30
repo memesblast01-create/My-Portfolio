@@ -1,10 +1,12 @@
 import { motion } from 'framer-motion'
 import { SKILLS } from '../utils/data'
+import { accentFor } from '../utils/palette'
 
 const SIZES = [1, 1.35, 0.9, 1.15, 1, 1.25, 0.95, 1.1, 1, 1.3, 0.95]
 
 function Bubble({ skill, index }) {
   const size = SIZES[index % SIZES.length]
+  const accent = accentFor(index)
   return (
     <motion.div
       data-cursor="hover"
@@ -18,10 +20,10 @@ function Bubble({ skill, index }) {
         whileHover={{ scale: 1.08, y: -4 }}
         animate={{ y: [0, -7, 0] }}
         transition={{ y: { duration: 3 + (index % 4) * 0.4, repeat: Infinity, ease: 'easeInOut', delay: index * 0.15 } }}
-        className="inline-flex items-center rounded-full border font-mono uppercase tracking-widest"
+        className="inline-flex items-center rounded-full font-mono uppercase tracking-widest"
         style={{
-          borderColor: 'var(--line)',
-          background: 'var(--bg)',
+          background: accent.bg,
+          color: accent.fg,
           padding: `${0.6 * size}rem ${1.3 * size}rem`,
           fontSize: `${0.68 * size}rem`,
         }}

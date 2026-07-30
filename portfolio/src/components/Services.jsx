@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { SERVICES } from '../utils/data'
+import { accentFor } from '../utils/palette'
 
 function ServiceCard({ index, title, desc }) {
   const ref = useRef(null)
@@ -8,6 +9,7 @@ function ServiceCard({ index, title, desc }) {
   const ry = useMotionValue(0)
   const srx = useSpring(rx, { stiffness: 150, damping: 16 })
   const sry = useSpring(ry, { stiffness: 150, damping: 16 })
+  const accent = accentFor(index)
 
   function onMove(e) {
     const rect = ref.current.getBoundingClientRect()
@@ -35,9 +37,14 @@ function ServiceCard({ index, title, desc }) {
     >
       <div
         className="pointer-events-none absolute -inset-16 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-3xl"
-        style={{ background: 'radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--accent) 30%, transparent), transparent 70%)' }}
+        style={{ background: `radial-gradient(circle at 50% 0%, ${accent.bgDark}, transparent 70%)` }}
       />
-      <span className="font-mono text-xs" style={{ color: 'var(--accent)' }}>{String(index + 1).padStart(2, '0')}</span>
+      <span
+        className="inline-flex items-center justify-center w-9 h-9 rounded-full font-mono text-xs"
+        style={{ background: accent.bg, color: accent.fg }}
+      >
+        {String(index + 1).padStart(2, '0')}
+      </span>
       <h3 className="font-display text-xl mt-4 mb-2.5">{title}</h3>
       <p className="text-sm" style={{ color: 'var(--fg-muted)' }}>{desc}</p>
     </motion.div>
