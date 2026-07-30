@@ -1,70 +1,63 @@
 import { motion } from 'framer-motion'
 import { LineReveal } from './RevealText'
 import AnimatedCounter from './AnimatedCounter'
-import portrait from '../assets/portrait.jpg'
+import portrait from '../assets/images/portrait-cutout.webp'
 
 const STATS = [
-  { value: 7, suffix: '+', label: 'Years of experience' },
+  { value: 7, suffix: '', label: 'Years experience' },
   { value: 120, suffix: '+', label: 'Projects completed' },
-  { value: 40, suffix: '+', label: 'Happy clients' },
+  { value: 46, suffix: '', label: 'Happy clients' },
 ]
 
 export default function About() {
   return (
-    <section id="about" className="relative py-28 md:py-40" style={{ background: 'var(--surface)' }}>
-      <div className="container-page grid md:grid-cols-12 gap-14 md:gap-10 items-start">
-        <div className="md:col-span-5">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-            className="sticky top-32"
-          >
-            <div className="relative rounded-[1.75rem] overflow-hidden border" style={{ borderColor: 'var(--line)' }}>
-              <img src={portrait} alt="Arsalan at work" className="w-full h-[420px] object-cover" />
-            </div>
-            <div className="grid grid-cols-3 gap-6 mt-10">
-              {STATS.map((s) => (
-                <div key={s.label}>
-                  <AnimatedCounter value={s.value} suffix={s.suffix} className="font-display text-3xl md:text-4xl" />
-                  <div className="eyebrow mt-2 leading-snug">{s.label}</div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
+    <section id="about" className="py-28 md:py-36">
+      <div className="container-page grid md:grid-cols-2 gap-16 items-start">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.94 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+          className="relative aspect-[4/5] rounded-[1.75rem] overflow-hidden order-2 md:order-1"
+        >
+          <div
+            className="absolute inset-0"
+            style={{ background: 'linear-gradient(165deg, var(--stone) 0%, var(--surface) 55%, var(--accent-2) 150%)' }}
+          />
+          <img
+            src={portrait}
+            alt="Arsalan at work"
+            className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[102%] w-auto max-w-none object-contain object-bottom grayscale"
+          />
+          <div className="absolute inset-0" style={{ background: 'color-mix(in srgb, var(--charcoal) 12%, transparent)' }} />
+        </motion.div>
 
-        <div className="md:col-span-7">
+        <div className="order-1 md:order-2">
           <span className="eyebrow">About</span>
-          <h2 className="font-display text-4xl md:text-6xl mt-4 mb-10 leading-[1.02]">
-            Design that earns<br /> its restraint.
+          <h2 className="font-display font-medium text-[clamp(2rem,4vw,3.2rem)] mt-4 leading-[1.05]">
+            A quiet, editorial approach<br /> to visual identity.
           </h2>
 
           <LineReveal
-            className="space-y-5 text-lg md:text-xl leading-relaxed max-w-xl"
-            style={{ color: 'var(--fg-muted)' }}
+            className="mt-8 space-y-4 max-w-lg text-base md:text-lg"
             lines={[
-              'I started in print, learning what a design looks like once ink meets paper and every choice becomes permanent.',
-              'That discipline still shapes how I work today: fewer decisions, made deliberately, over more decisions made quickly.',
-              'Now I split my time between brand identity, packaging, and the occasional motion system, working with studios and independent founders who care as much about the craft as the outcome.',
+              "I started in print — small-run zines and packaging for local shops — before moving into full identity systems.",
+              "Every project starts the same way: understand the category, then design the smallest system that could possibly work.",
+              "I care less about trends and more about whether the work still looks right in five years.",
             ]}
           />
 
-          <div className="mt-14 grid sm:grid-cols-2 gap-8">
-            <div>
-              <h3 className="font-display text-xl mb-3">Career journey</h3>
-              <p style={{ color: 'var(--fg-muted)' }} className="text-sm leading-relaxed">
-                From an in-house print studio to leading identity work at Studio Norrland, now independent and
-                selective about the clients I take on.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-display text-xl mb-3">Creative philosophy</h3>
-              <p style={{ color: 'var(--fg-muted)' }} className="text-sm leading-relaxed">
-                Systems before decoration. A brand should still work in one color, printed badly, at three inches wide.
-              </p>
-            </div>
+          <div className="mt-14 grid grid-cols-3 gap-6 border-t pt-8" style={{ borderColor: 'var(--line)' }}>
+            {STATS.map((s) => (
+              <div key={s.label}>
+                <div className="font-display text-3xl md:text-4xl" style={{ color: 'var(--accent)' }}>
+                  <AnimatedCounter value={s.value} suffix={s.suffix} />
+                </div>
+                <div className="mt-2 font-mono text-[0.65rem] uppercase tracking-widest" style={{ color: 'var(--fg-muted)' }}>
+                  {s.label}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

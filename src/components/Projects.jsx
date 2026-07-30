@@ -2,66 +2,75 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import { PROJECTS } from '../utils/data'
+import { accentFor } from '../utils/palette'
 import ProjectModal from './ProjectModal'
 
-function projectAccent(i) {
-  const accents = ['var(--accent)', 'var(--accent-2)', 'var(--accent)', 'var(--accent-2)']
-  return accents[i % accents.length]
+function ProjectRow({ project, index, onOpen }) {
+  const reversed = index % 2 === 1
+  const accent = accentFor(index)
+  return (
+    <motion.button
+      onClick={() => onOpen(project)}
+      data-cursor="hover"
+      data-cursor-text="Explore"
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.25 }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      className={`group grid md:grid-cols-2 gap-8 md:gap-16 items-center text-left w-full py-14 border-b ${reversed ? 'md:[&>*:first-child]:order-2' : ''}`}
+      style={{ borderColor: 'var(--line)' }}
+    >
+      <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
+        <img
+          src={project.image}
+          alt={project.title}
+          loading="lazy"
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+        />
+        <div
+          className="absolute inset-0 mix-blend-multiply opacity-60"
+          style={{ background: `linear-gradient(135deg, ${accent.fg}, transparent 70%)` }}
+        />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, transparent 55%, rgba(0,0,0,0.35))' }} />
+        <span
+          className="absolute top-4 left-4 px-3 py-1.5 rounded-full font-mono text-[0.65rem] uppercase tracking-widest"
+          style={{ background: accent.bg, color: accent.fg }}
+        >
+          {project.category.split(',')[0]}
+        </span>
+      </div>
+
+      <div>
+        <span className="eyebrow">{project.category} — {project.year}</span>
+        <h3 className="font-display text-2xl md:text-3xl mt-4 flex items-center gap-3">
+          {project.title}
+          <ArrowUpRight size={20} className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" style={{ color: 'var(--accent)' }} />
+        </h3>
+        <p className="mt-4 max-w-md" style={{ color: 'var(--fg-muted)' }}>{project.description}</p>
+        <span className="mt-6 inline-block font-mono text-xs uppercase tracking-widest" style={{ color: 'var(--fg-muted)' }}>
+          {project.software}
+        </span>
+      </div>
+    </motion.button>
+  )
 }
 
 export default function Projects() {
   const [active, setActive] = useState(null)
 
   return (
-    <section id="projects" className="py-28 md:py-40">
+    <section id="projects" className="py-28 md:py-36">
       <div className="container-page">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-20">
-          <div>
-            <span className="eyebrow">Selected Work</span>
-            <h2 className="font-display text-4xl md:text-6xl mt-4 leading-[1.02]">Featured projects.</h2>
-          </div>
+        <div className="max-w-lg mb-6">
+          <span className="eyebrow">Featured Work</span>
+          <h2 className="font-display font-medium text-[clamp(2rem,4vw,3.2rem)] mt-4 leading-[1.05]">
+            Selected projects.
+          </h2>
         </div>
 
-        <div className="flex flex-col gap-24 md:gap-32">
-          {PROJECTS.map((project, i) => (
-            <motion.button
-              key={project.id}
-              onClick={() => setActive(project)}
-              data-cursor="hover"
-              data-cursor-text="View"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.25 }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              className={`text-left grid md:grid-cols-12 gap-6 md:gap-10 items-center group ${i % 2 === 1 ? 'md:[direction:rtl]' : ''}`}
-            >
-              <div className="md:col-span-7 [direction:ltr] relative overflow-hidden rounded-[1.75rem] border" style={{ borderColor: 'var(--line)' }}>
-                <div
-                  className="w-full aspect-[4/3] flex items-center justify-center transition-transform duration-700 group-hover:scale-105"
-                  style={{
-                    background: `linear-gradient(135deg, color-mix(in srgb, ${projectAccent(i)} 30%, var(--surface)), var(--surface))`,
-                  }}
-                >
-                  <span className="font-display text-5xl md:text-7xl opacity-30">{String(i + 1).padStart(2, '0')}</span>
-                </div>
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: 'color-mix(in srgb, var(--charcoal) 35%, transparent)' }}>
-                  <span className="flex items-center gap-2 px-6 py-3 rounded-full font-mono text-xs uppercase tracking-widest" style={{ background: 'var(--bg)', color: 'var(--fg)' }}>
-                    View case study <ArrowUpRight size={14} />
-                  </span>
-                </div>
-              </div>
-
-              <div className="md:col-span-5 [direction:ltr]">
-                <div className="eyebrow mb-4">{project.category} — {project.year}</div>
-                <h3 className="font-display text-3xl md:text-4xl mb-4 leading-tight">{project.title}</h3>
-                <p className="text-sm md:text-base leading-relaxed max-w-sm" style={{ color: 'var(--fg-muted)' }}>
-                  {project.description}
-                </p>
-                <div className="mt-6 font-mono text-xs uppercase tracking-widest" style={{ color: 'var(--fg-muted)' }}>
-                  {project.software}
-                </div>
-              </div>
-            </motion.button>
+        <div>
+          {PROJECTS.map((p, i) => (
+            <ProjectRow key={p.id} project={p} index={i} onOpen={setActive} />
           ))}
         </div>
       </div>

@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import { useTheme } from './hooks/useTheme'
+import { useSmoothScroll } from './hooks/useSmoothScroll'
 import Loader from './components/Loader'
 import CustomCursor from './components/CustomCursor'
 import ScrollProgress from './components/ScrollProgress'
@@ -16,42 +18,43 @@ import Achievements from './components/Achievements'
 import Gallery from './components/Gallery'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
-import { useTheme } from './hooks/useTheme'
-import { useSmoothScroll } from './hooks/useSmoothScroll'
 
 export default function App() {
   const [loading, setLoading] = useState(true)
   const { theme, toggle } = useTheme()
+
   useSmoothScroll()
 
   return (
     <>
       <div className="grain" />
       <CustomCursor />
-      <Loader onDone={() => setLoading(false)} />
-      <ScrollProgress />
-      <Navbar theme={theme} onToggleTheme={toggle} />
+      {loading && <Loader onDone={() => setLoading(false)} />}
 
       <AnimatePresence>
         {!loading && (
-          <motion.main
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8 }}
           >
-            <Hero />
-            <About />
-            <Services />
-            <Projects />
-            <Skills />
-            <Process />
-            <Testimonials />
-            <Experience />
-            <Achievements />
-            <Gallery />
-            <Contact />
+            <ScrollProgress />
+            <Navbar theme={theme} onToggleTheme={toggle} />
+            <main>
+              <Hero />
+              <About />
+              <Services />
+              <Projects />
+              <Skills />
+              <Process />
+              <Testimonials />
+              <Experience />
+              <Achievements />
+              <Gallery />
+              <Contact />
+            </main>
             <Footer />
-          </motion.main>
+          </motion.div>
         )}
       </AnimatePresence>
     </>

@@ -1,39 +1,49 @@
 import { motion } from 'framer-motion'
 import { EXPERIENCE } from '../utils/data'
+import { accentFor } from '../utils/palette'
 
 export default function Experience() {
   return (
-    <section className="py-28 md:py-40">
+    <section className="py-28 md:py-36">
       <div className="container-page">
-        <span className="eyebrow">Experience</span>
-        <h2 className="font-display text-4xl md:text-6xl mt-4 mb-20 leading-[1.02]">Where it&rsquo;s taken me.</h2>
+        <div className="max-w-lg mb-16">
+          <span className="eyebrow">Experience</span>
+          <h2 className="font-display font-medium text-[clamp(2rem,4vw,3.2rem)] mt-4 leading-[1.05]">
+            The path so far.
+          </h2>
+        </div>
 
         <div className="relative max-w-3xl">
-          <div className="absolute left-[7px] md:left-[7px] top-2 bottom-2 w-px" style={{ background: 'var(--line)' }} />
+          <div className="absolute left-[7px] top-2 bottom-2 w-px" style={{ background: 'var(--line)' }} />
           <motion.div
             className="absolute left-[7px] top-2 w-px origin-top"
             style={{ background: 'var(--accent)' }}
-            initial={{ scaleY: 0 }}
+            initial={{ scaleY: 0, height: '100%' }}
             whileInView={{ scaleY: 1 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
           />
 
-          <div className="flex flex-col gap-14">
+          <div className="space-y-14">
             {EXPERIENCE.map((item, i) => (
               <motion.div
                 key={item.title}
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, amount: 0.5 }}
-                transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.6, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
                 className="relative pl-10"
               >
-                <div className="absolute left-0 top-1.5 w-[15px] h-[15px] rounded-full border-2" style={{ borderColor: 'var(--accent)', background: 'var(--bg)' }} />
-                <div className="eyebrow mb-2">{item.year}</div>
-                <h3 className="font-display text-2xl mb-2">{item.title}</h3>
-                <div className="text-sm mb-3" style={{ color: 'var(--accent)' }}>{item.org}</div>
-                <p className="text-sm leading-relaxed max-w-lg" style={{ color: 'var(--fg-muted)' }}>{item.desc}</p>
+                <span
+                  className="absolute left-0 top-1.5 w-3.5 h-3.5 rounded-full"
+                  style={{ background: 'var(--bg)', border: `2px solid ${accentFor(i).fg}` }}
+                />
+                <div className="font-mono text-xs uppercase tracking-widest mb-1.5" style={{ color: accentFor(i).fg }}>
+                  {item.year}
+                </div>
+                <h3 className="font-display text-xl">{item.title}</h3>
+                <div className="text-sm mt-1" style={{ color: 'var(--fg-muted)' }}>{item.org}</div>
+                <p className="mt-2 max-w-md text-sm" style={{ color: 'var(--fg-muted)' }}>{item.desc}</p>
               </motion.div>
             ))}
           </div>
